@@ -6,4 +6,4 @@
 
 ### Code Refactoring <br>
 Modification in file [src/dclnt.py](src/dclnt.py).<br>
-Last commit c6807b81<br>
+Last commit c69d5ce<br>
