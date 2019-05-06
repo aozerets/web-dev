@@ -1,80 +1,9 @@
 # Материалы проекта web-dev
 
 ## Содержание
-1. [Task#1 Code refactoring](#task-refactoring)
+1. [Task#1 Code Refactoring](#code-refactoring)
 2. Task#2 Features
 
-##<a name="task2-refactoring"></a> Code refactoring<br>
-File modification [src/dclnt.py](src/dclnt.py).<br>
+### Code Refactoring <br>
+Modification in file [src/dclnt.py](src/dclnt.py).<br>
 Last commit c6807b81<br>
-
-
-
-
-
-
-
-!
-
-
-
-
-
-
-
-!
-
-
-
-
-
-
-!
-!
-!
-
-
-
-
-
-
-
-
-
-!
-
-
-
-
-!
-
-
-
-
-
-
-
-
-!
-
-
-
-
-
-
-
-
-
-
-
-
-
-!
-
-
-
-
-
-
-
-<a name="task-refactoring"></a>!!!
