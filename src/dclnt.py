@@ -101,8 +101,7 @@ projects = [
     'pyramid',
     'reddit',
     'requests',
-    'sqlalchemy',
-    'C:\\Users\\che\\IdeaProjects\\aerodisk-double-controller2'
+    'sqlalchemy'
 ]
 for project in projects:
     print("-"*50)
