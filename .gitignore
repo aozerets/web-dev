@@ -6,3 +6,6 @@ logs
 *.todo
 *.swp
 *.orig
+*.pyc
+*.pyo
+__pycache__
