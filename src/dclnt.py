@@ -4,6 +4,9 @@ import collections
 
 from nltk import pos_tag
 
+MAX_FILES_COUNT = 100
+TOP_SIZE = 200
+
 
 def flat(_list):
     """ [(1,2), (3,4)] -> [1, 2, 3, 4]"""
@@ -17,9 +20,15 @@ def is_verb(_word):
     return pos_info[0][1] == 'VB'
 
 
-def read_files(filenames, with_filenames, with_file_content):
+def get_trees(_filenames, with_filenames=False, with_file_content=False):
+    """Makes ast nodes from files content.
+        filenames         -> List of paths to files in string,
+        with_filenames    -> Boolean default False,
+        with_file_content -> Boolean default False,
+        return            -> List of ast nodes."""
+
     _trees = []
-    for filename in filenames:
+    for filename in _filenames:
         with open(filename, 'r', encoding='utf-8') as attempt_handler:
             main_file_content = attempt_handler.read()
         try:
@@ -37,18 +46,17 @@ def read_files(filenames, with_filenames, with_file_content):
     return _trees
 
 
-def get_trees(_path, with_filenames=False, with_file_content=False):
-    filenames = []
+def get_filenames(_path):
+    """Gathers the python file paths down from the given path into the string list."""
+
+    _filenames = []
     for dirname, dirs, files in os.walk(_path, topdown=True):
         for file in files:
             if file.endswith('.py'):
-                filenames.append(os.path.join(dirname, file))
-                if len(filenames) == 100:
-                    break
-    print('total %s files' % len(filenames))
-    _trees = read_files(filenames, with_filenames, with_file_content)
-    print('trees generated')
-    return _trees
+                _filenames.append(os.path.join(dirname, file))
+                if len(_filenames) == MAX_FILES_COUNT:
+                    return _filenames
+    return _filenames
 
 
 def get_all_words(tree):
@@ -72,24 +80,24 @@ def get_names(_trees):
     return filter_underscores(node_names)
 
 
-def get_all_words_in_path(_trees, _top_size=10):
+def get_all_words_from_ast_nodes(_trees):
     all_words = filter_underscores(flat([get_all_words(t) for t in _trees]))
     path_words = flat([split_snake_case_name_to_words(w) for w in all_words])
     print('all words extracted')
-    return collections.Counter(path_words).most_common(_top_size)
+    return collections.Counter(path_words).most_common(TOP_SIZE)
 
 
-def get_top_verbs_in_path(_trees, _top_size=10):
+def get_top_verbs_from_ast_nodes(_trees):
     functions = get_names(_trees)
     path_verbs = flat([get_verbs_from_function_name(function_name) for function_name in functions])
     print('verbs extracted')
-    return collections.Counter(path_verbs).most_common(_top_size)
+    return collections.Counter(path_verbs).most_common(TOP_SIZE)
 
 
-def get_top_functions_names_in_path(_trees, _top_size=10):
+def get_top_functions_names_from_ast_nodes(_trees):
     function_names = get_names(_trees)
     print('functions extracted')
-    return collections.Counter(function_names).most_common(_top_size)
+    return collections.Counter(function_names).most_common(TOP_SIZE)
 
 
 words = []
@@ -101,24 +109,26 @@ projects = [
     'pyramid',
     'reddit',
     'requests',
-    'sqlalchemy'
+    'sqlalchemy',
 ]
 for project in projects:
     print("-"*50)
     print("'%s' project statistics:" % project.title())
     path = os.path.join('.', project)
-    trees = [t for t in get_trees(path) if t]
-    verbs += get_top_verbs_in_path(trees)
-    names += get_top_functions_names_in_path(trees)
-    words += get_all_words_in_path(trees)
+    filenames = get_filenames(path)
+    print('total %s files' % len(filenames))
+    trees = get_trees(filenames)
+    print('trees generated')
+    verbs += get_top_verbs_from_ast_nodes(trees)
+    names += get_top_functions_names_from_ast_nodes(trees)
+    words += get_all_words_from_ast_nodes(trees)
 
-top_size = 200
 print('\n Total %s verbs, %s unique:' % (len(verbs), len(set(verbs))))
 for verb, occurrence in verbs:
-    print("\t verb: '%s', occurrence: %d" % (verb, occurrence))
+    print("  %s %s %d" % (verb, "-"*(25 - len(verb)), occurrence))
 print('\n Total %s function names, %s unique:' % (len(names), len(set(names))))
 for name, occurrence in names:
-    print("\t name: '%s', occurrence: %d" % (name, occurrence))
+    print("  %s %s %d" % (name, "-"*(25 - len(name)), occurrence))
 print('\n Total %s words, %s unique:' % (len(words), len(set(words))))
 for word, occurrence in words:
-    print("\t word: '%s', occurrence: %d" % (word, occurrence))
+    print("  %s %s %d" % (word, "-"*(25 - len(word)), occurrence))
