@@ -1,3 +1,5 @@
+#! /usr/bin/env python3
+
 import argparse
 import ast
 import json
@@ -202,7 +204,7 @@ def main(_args):
 def init_parse():
     p = argparse.ArgumentParser()
     p.add_argument('-s', '--server', default='git', action='store', help='Enter a server')
-    p.add_argument('-p', '--project', action='store', help='Enter a url to project')
+    p.add_argument('-p', '--project', action='store', help='Enter an url to project')
     p.add_argument('-w', '--words', choices=['verb', 'noun'], help='Select verbs or nouns', required=True)
     p.add_argument('-f', '--functions', choices=['name', 'var'],
                    help='Select function names or thier local variables', required=True)
