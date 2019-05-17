@@ -1,4 +1,3 @@
-#! /usr/bin/env python3
 
 import ast
 import os
@@ -112,6 +111,7 @@ projects = [
     'reddit',
     'requests',
     'sqlalchemy',
+    'C:\\Users\\che\\IdeaProjects\\aerodisk-double-controller2',
 ]
 for project in projects:
     print("-"*50)

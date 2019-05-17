@@ -123,17 +123,18 @@ class Project:
     }
     @staticmethod
     def _exec(cmd):
-        """Executes givven command in shell,
+        """Executes the received command in shell,
            automatically decodes input to UTF-8
            and removes unnecessary symbols from the end of str.
            :cmd  -> string."""
 
         proc = Popen(cmd, stdout=PIPE, stderr=PIPE, shell=True)
         out = proc.communicate(timeout=60)[0]
-        print(out.decode(errors="replace").strip(" \n\t"))
         return out.decode(errors="replace").strip(" \n\t")
 
     def clone(self):
+        if os.path.exists(self.project_path):
+            self.directory = "_".join(self.project.split("/")[-2:])
         self._exec("mkdir %s" % self.directory)
         self._exec("cd %s" % self.directory)
         command = self.__commands[self.server].format(self.project)
