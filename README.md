@@ -4,7 +4,7 @@ The project requires Python3.*<br>
 The project can be installed by downloading [source codes](https://github.com/aozerets/web-dev/releases/) 
 as a zip archive or by cloning this repository.
 ***
-## Содержание
+## Content
 1. [Task#1 Code Refactoring](#code-refactoring-)
 2. [Task#2 Features](#features-)
 ***
