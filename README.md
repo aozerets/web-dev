@@ -9,7 +9,7 @@ as a zip archive or by cloning this repository.
 2. [Task#2 Features](#features-)
 ***
 ### Code Refactoring <br>
-The project requires nltk package<br>
+The project requires nltk package.<br>
 File [src/raw_project.py](src/raw_project.py) modified to file [src/modified_project.py](src/modified_project.py).<br>
 Using decomposition, right naming of functions and variables, adding docstrings.<br>
 To get the data you need to call the file [src/modified_project.py](src/modified_project.py) without arguments.
