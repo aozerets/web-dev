@@ -29,7 +29,6 @@ class API:
     def route(self, path):
         def wrapper(handler):
             self.routes[path] = handler
-            print(self.routes)
             return handler
         return wrapper
 
@@ -52,20 +51,20 @@ class API:
     def default_response(response):
         response.status_code = 404
         response.text = "<h1>Not found.</h1><br><h1>COME BACK LATER!</h1>"
-
-    @staticmethod
-    def _exec(cmd):
-        """Executes the received command in shell,
-           automatically decodes input to UTF-8
-           and removes unnecessary symbols from the end of str.
-           :cmd  -> string."""
-
-        proc = Popen(cmd, stdout=PIPE, stderr=PIPE, shell=True)
-        out = proc.communicate(timeout=60)[0]
-        return out.decode(errors="replace").strip(" \n\t")
-
-    def run(self, file, app):
-        conf = ConfigParser()
-        conf.read('conf.ini')
-        host = conf.get('host', 'ip') + ":" + conf.get('host', 'port')
-        self._exec("gunicorn %s:%s -b %s" % (file.split(".")[0], app, host))
+    #
+    # @staticmethod
+    # def _exec(cmd):
+    #     """Executes the received command in shell,
+    #        automatically decodes input to UTF-8
+    #        and removes unnecessary symbols from the end of str.
+    #        :cmd  -> string."""
+    #
+    #     proc = Popen(cmd, stdout=PIPE, stderr=PIPE, shell=True)
+    #     out = proc.communicate(timeout=60)[0]
+    #     return out.decode(errors="replace").strip(" \n\t")
+    #
+    # def run(self, file, app):
+    #     conf = ConfigParser()
+    #     conf.read('conf.ini')
+    #     host = conf.get('host', 'ip') + ":" + conf.get('host', 'port')
+    #     self._exec("gunicorn %s:%s -b %s" % (file.split(".")[0], app, host))
