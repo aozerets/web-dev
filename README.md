@@ -6,5 +6,5 @@ as a zip archive or by cloning this repository.
 ***
 ## Content
 1. [Task#1 Code Refactoring](src/refactoring/refactoring.md)
-2. [Task#2 Features](src/statistics/statistics.py)
+2. [Task#2 Features](src/statistics/statistics.md)
 3. [Task#3 uWSGI framework](src/uwsgi/uwsgi.md)
