@@ -22,7 +22,3 @@ def home(request, response):
 def detail(request, response, name, age):
     response.text = "Greetings! This is the page of DETAIL information!"
     response.text += "<h2>Your name is: %s</h2><br><h2>And your are %s years old!!</h2>" % (name, age)
-
-#
-# if __name__ == "__main__":
-#     app.run(__file__, 'app')
