@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+<head>
+    <meta charset="UTF-8">
+    <title>Products</title>
+</head>
+<body>
+    <h1 style="margin-left: 50px">Let me offer U some staff:</h1>
+    <a style="margin-left: 70px">Our Products:</a>
+    <table border="1px" style="margin-left: 70px">
+        <thead>
+        <tr>
+            <th>Title</th>
+            <th>Cost</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for product in products %}
+        <tr>
+            <td><a href="{{ url_for('product_page', prod_id=product.id) }}">{{ product.name }}</a></td>
+            <td>{{ product.cost }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div style="margin-left: 70px">
+        <a href="{{ url_for('index_page') }}">Go to main page-></a>
+    </div>
+</body>
+</html>

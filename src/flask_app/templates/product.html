@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+<head>
+    <meta charset="UTF-8">
+    <title>DetailPage</title>
+</head>
+<body>
+    <h1 style="margin-left: 50px">The detail information of chosen product:</h1>
+    <ul style="margin-left: 70px">
+        {% if product %}
+        <li>ID: {{ product.id }}</li>
+        <li>Title: {{ product.name }}</li>
+        <li>Cost: {{ product.cost }}</li>
+        <li>Brand: {{ product.brand }}</li>
+        {% endif %}
+    </ul>
+    <h3 style="margin-left: 50px">comments:</h3>
+    <p style="margin-left: 70px; max-width: 150px; word-break: break-word;"><i>{{ product.comment }}</i></p>
+    <div style="margin-left: 50px">
+        <a href="{{ url_for('products_page') }}">Go to products-></a>
+    </div>
+</body>
+</html>

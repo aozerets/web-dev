@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+<head>
+    <meta charset="UTF-8">
+    <title>Simple</title>
+</head>
+<body>
+    <h1 style="margin-left: 50px">Welcome Dear {{ name if name else 'Guest' }}!</h1>
+    <div style="margin-left: 70px">
+        <a href="{{ url_for('products_page') }}">Go to shop-></a>
+    </div>
+</body>
+</html>
