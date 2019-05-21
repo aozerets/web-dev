@@ -8,7 +8,7 @@ The project requires Flask==1.0.3 package installed.<br>
 ##### Usage and requirements
 First go to [/path/to/src/flask_app/config.py](/src/flask_app/config.py) and change the host and port in SERVER_NAME in DevelopmentConfig class.<br>
 After that U can run your app on chosen host.<br>
-Go to the folder in which the project was installed, and call the main file[main](/src/flask_app/main.py).<br>
+Go to the folder in which the project was installed, and call the main file [main.py](/src/flask_app/main.py).<br>
 Example of use:<br>
 ```
 /path/to/flask_app >>> ./main.py
