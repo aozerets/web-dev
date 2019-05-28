@@ -1,8 +1,8 @@
 ### sqlite3 ORM <br>
 ##### Usage and requirements
-First set the path to database in file [/src/share/conf.ini](/src/share/conf.ini) in "db_settings" section.<br>
+First set the path to database in file [/src/share/conf.ini](/share/conf.ini) in "db_settings" section.<br>
 By default ORM creates database in the same folder with name "testORM.db".<br>
-Examples of usage are shown in file [src/sqlite3_ORM/base.py](/src/sqlite3_ORM/base.py) 
+Examples of usage are shown in file [src/sqlite3_ORM/base.py](/src/sqlite3_ORM/base.py) <br>
 Simple table creating:
 ```
 class User(Base):
