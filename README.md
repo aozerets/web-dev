@@ -8,4 +8,5 @@ as a zip archive or by cloning this repository.
 1. [Task#1 Code Refactoring](src/refactoring/refactoring.md)
 2. [Task#2 Features](src/statistics/statistics.md)
 3. [Task#3 uWSGI framework](src/uwsgi/uwsgi.md)
-4. [TAsk#4 Flask App](src/flask_app/flask_app.md)
+4. [Task#4 Flask App](src/flask_app/flask_app.md)
+5. [Task#5 sqlite3 ORM](src/sqlite3_ORM/sqlite3_ORM.md)
