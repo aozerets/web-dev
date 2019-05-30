@@ -104,48 +104,63 @@ class Base(PDBC):
     def __init__(self, *args, **kwargs):
         super(Base, self).__init__()
         self.__dict__.update(kwargs)
+        self._table = self.__class__.__tablename__
+        self._class_fields = self.__class__.__dict__.items()
+        self._fields = self.__dict__.items()
 
     def create(self, echo=False):
-        fields = [str(k) + " " + " ".join([x.upper() for x in v if 'pk' not in x]) for k, v in self.__class__.__dict__.items() if not k.startswith('__') and k != 'FK']
-        pk = [x for x, y in self.__class__.__dict__.items() if not x.startswith('__') and 'pk' in y]
+        fields = [
+            str(k) + " " + " ".join([x.upper() for x in v if 'pk' not in x])
+            for k, v in self._class_fields
+            if not k.startswith('__') and k != 'FK'
+        ]
+        pk = [x for x, y in self._class_fields if not x.startswith('__') and 'pk' in y]
         if pk and len(pk) == 1:
             fields.append('PRIMARY KEY ({})'.format(pk[0]))
         elif pk and len(pk) > 1:
             print('Ошибка PRIMARY KEY может быть назначен только на 1 поле.')
             raise Exception
 
-        fkeys = next((y for x, y in self.__class__.__dict__.items() if not x.startswith('__') and 'FK' in x), None)
+        fkeys = next((y for x, y in self._class_fields if not x.startswith('__') and 'FK' in x), None)
         if fkeys:
             for fk in fkeys:
-                fields.append("FOREIGN KEY('{}') REFERENCES '{}' ('{}') ON DELETE CASCADE".format(fk[0], fk[1].split(".")[0], fk[1].split(".")[1]))
+                fields.append("FOREIGN KEY('{}') REFERENCES '{}' ('{}') ON DELETE CASCADE".format(
+                    fk[0],
+                    fk[1].split(".")[0],
+                    fk[1].split(".")[1]
+                ))
 
-        query = "CREATE TABLE {} ({})".format(self.__class__.__tablename__, ", ".join(fields))
+        query = "CREATE TABLE {} ({})".format(self._table, ", ".join(fields))
         if echo:
             print(query)
         self.sql_update(query)
 
     def save(self, echo=False, return_id=False):
-        fields_with_values = [(k, v) for k, v in self.__dict__.items() if not k.startswith('_')]
+        fields_with_values = [(k, v) for k, v in self._fields if not k.startswith('_')]
         names = [x[0] for x in fields_with_values]
         values = [str(x[1]) for x in fields_with_values]
-        query = "INSERT INTO '{}' ({}) VALUES ('{}')".format(self.__class__.__tablename__, ", ".join(names), "\', \'".join(values))
+        query = "INSERT INTO '{}' ({}) VALUES ('{}')".format(
+            self._table,
+            ", ".join(names),
+            "\', \'".join(values)
+        )
         if echo:
             print(query)
         return self.sql_update(query, None, return_id)
 
     def update(self, *args, echo=False, **kwargs):
         to_update = [k + "=\'" + str(v) + "\'" for k, v in kwargs.items()]
-        query = "UPDATE '{}' SET {}".format(self.__class__.__tablename__, ", ".join(to_update))
-        pk = next((x for x, y in self.__class__.__dict__.items() if not x.startswith('_') and 'pk' in y), None)
+        query = "UPDATE '{}' SET {}".format(self._table, ", ".join(to_update))
+        pk = next((x for x, y in self._class_fields if not x.startswith('_') and 'pk' in y), None)
         if pk:
-            query += " WHERE {}".format(next(k + "=" + str(v) for k, v in self.__dict__.items() if k == pk))
+            query += " WHERE {}".format(next(k + "=" + str(v) for k, v in self._fields if k == pk))
         if echo:
             print(query)
         return self.sql_update(query)
 
     def filter(self, *args, echo=False, **kwargs):
         filter_values = [k + "=\'" + str(v) + "\'" for k, v in kwargs.items()]
-        query = "SELECT * FROM {} WHERE {}".format(self.__class__.__tablename__, " AND ".join(filter_values))
+        query = "SELECT * FROM {} WHERE {}".format(self._table, " AND ".join(filter_values))
         if echo:
             print(query)
         result = [self.__class__(**x) for x in self.query_for_dict(query)]
@@ -155,34 +170,46 @@ class Base(PDBC):
         return result[0]
 
     def delete(self, *args, echo=False, **kwargs):
-        pk = next((x for x, y in self.__class__.__dict__.items() if not x.startswith('_') and 'pk' in y), None)
+        pk = next((x for x, y in self._class_fields if not x.startswith('_') and 'pk' in y), None)
         if pk:
-            arguments = next(k + "=" + str(v) for k, v in self.__dict__.items() if k == pk)
+            arguments = next(k + "=" + str(v) for k, v in self._fields if k == pk)
         else:
-            fields_with_values = [k + "=\'" + str(v) + "\'" for k, v in self.__dict__.items() if not k.startswith('_')]
+            fields_with_values = [k + "=\'" + str(v) + "\'" for k, v in self._fields if not k.startswith('_')]
             arguments = " AND ".join(fields_with_values)
-        query = "DELETE FROM {} WHERE {}".format(self.__class__.__tablename__, arguments)
+        query = "DELETE FROM {} WHERE {}".format(self._table, arguments)
         if echo:
             print(query)
         self.sql_update(query)
 
     def select_with(self, other, condition=None, join=False, echo=False):
-        own_fields = [self.__class__.__tablename__ + "." + k + " AS " + self.__class__.__tablename__ + "_" + k for k, v in self.__class__.__dict__.items() if not k.startswith('_') and k != 'FK']
-        other_fields = [other.__tablename__ + "." + k + " AS " + other.__tablename__ + "_" + k for k, v in other.__dict__.items() if not k.startswith('_') and k != 'FK']
+        own_fields = [
+            self._table + "." + k + " AS " + self._table + "_" + k
+            for k, v in self._class_fields
+            if not k.startswith('_') and k != 'FK'
+        ]
+        other_fields = [
+            other.__tablename__ + "." + k + " AS " + other.__tablename__ + "_" + k
+            for k, v in other.__dict__.items()
+            if not k.startswith('_') and k != 'FK'
+        ]
 
         if any(('FK' == x for x in self.__class__.__dict__.keys())) or any(('FK' == x for x in other.__dict__.keys())) or join:
-            query = "SELECT {} FROM {} JOIN {}".format(", ".join(own_fields + other_fields), self.__class__.__tablename__, other.__tablename__)
+            query = "SELECT {} FROM {} JOIN {}".format(
+                ", ".join(own_fields + other_fields),
+                self._table,
+                other.__tablename__
+            )
             if condition:
                 query += " ON {}".format(condition)
             if echo:
                 print(query)
             return [
-                (self.__class__({k: v for k, v in x.items() if k.startswith(self.__class__.__tablename__)}),
+                (self.__class__({k: v for k, v in x.items() if k.startswith(self._table)}),
                  other({k: v for k, v in x.items() if k.startswith(other.__tablename__)}))
                 for x in self.query_for_dict(query)
             ]
         else:
-            query1 = "SELECT * FROM {}".format(self.__class__.__tablename__)
+            query1 = "SELECT * FROM {}".format(self._table)
             owns = [self.__class__(**x) for x in self.query_for_dict(query1)]
             query2 = "SELECT * FROM {}".format(other.__tablename__)
             others = [other(**x) for x in self.query_for_dict(query2)]
@@ -191,21 +218,21 @@ class Base(PDBC):
                 print(query2)
             result = list(product(owns, others))
             if condition:
-                result = [x for x in result if eval(condition, {self.__class__.__tablename__: x[0], other.__tablename__: x[1]})]
+                result = [x for x in result if eval(condition, {self._table: x[0], other.__tablename__: x[1]})]
             return result
 
     def select_all(self, echo=False):
-        query = "SELECT * FROM {}".format(self.__class__.__tablename__)
+        query = "SELECT * FROM {}".format(self._table)
         if echo:
             print(query)
         return [self.__class__(**x) for x in self.query_for_dict(query)]
 
     def delete_all(self, echo=False):
-        query = "DELETE FROM {}".format(self.__class__.__tablename__)
+        query = "DELETE FROM {}".format(self._table)
         if echo:
             print(query)
         self.sql_update(query)
 
     def __str__(self):
-        return dumps({k: v for k, v in self.__dict__.items() if not k.startswith('_')})
+        return dumps({k: v for k, v in self._fields if not k.startswith('_')})
 
