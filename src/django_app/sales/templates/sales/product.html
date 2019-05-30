@@ -1,0 +1,30 @@
+{% extends 'sales/base.html' %}
+
+{% block title %}
+{{ product.title }}
+{% endblock %}
+
+{% block body %}
+{% load static %}
+<div class="row"  style="width: 820px;">
+    <h1 class="col">Your choice: {{ product.title }}</h1>
+    <div class="col col-3" style="margin: 10px -40px 0 0">
+        <button onclick="location.href='/sales/products'" type="button" class="btn btn-primary">Go back to shop</button>
+    </div>
+</div>
+<div class="card" style="width: 800px;">
+    <img class="card-img-top" src="{% static 'sales/images/mock.png' %}" alt="testing">
+    <div class="card-body">
+        <h4 class="card-title" style="text-align: center">{{ product.title }}</h4>
+        <h5 class="card-subtitle" style="font-weight: 1000; text-align: center">{{ product.brand }}</h5>
+        <p class="card-text">{{ product.comment }}</p>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Update">
+        </form>
+    </div>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'sales/base.html' %}
+
+{% block title %}
+Sales
+{% endblock %}
+
+{% block body %}
+{% load static %}
+<h1 style="text-align: center">Our shopping center</h1>
+<div style="margin-left: 100px">
+    <div class="d-flex flex-row flex-wrap">
+        {% for product in products %}
+        <div class="card" style="width: 200px;">
+            <img class="card-img-top" src="{% static 'sales/images/mock.png' %}" alt="testing">
+            <div class="card-body">
+                <h4 class="card-title" style="text-align: center"><a href="/sales/products/{{ product.id }}">{{ product.title }}</a></h4>
+                <h5 class="card-subtitle" style="font-weight: 1000; text-align: center">{{ product.brand }}</h5>
+                <p class="card-text">{{ product.comment }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

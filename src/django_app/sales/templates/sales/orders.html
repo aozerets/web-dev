@@ -1,0 +1,20 @@
+{% extends 'sales/base.html' %}
+
+{% block title %}
+Sales
+{% endblock %}
+
+{% block body %}
+<h1>Our shop</h1>
+{% for order in orders %}
+<div class="card" style="width: 18rem;">
+    <img class="card-img-top" src="/sales/images/mock.png">
+    <div class="card-body">
+        <h5 class="card-title">№ {{ order.id }}</h5>
+        <h6 class="card-title">For: {{ order.user.username }}</h6>
+        <p class="card-text">{{ order.created_time }}</p>
+        <a href="{{ order.id }}" class="card-link">Order link</a>
+    </div>
+</div>
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'sales/base.html' %}
+
+{% block title %}
+Order {{ order.id }}
+{% endblock %}
+
+{% block body %}
+<h1>Our shop</h1>
+<div class="card" style="width: 800px;">
+    <img class="card-img-top" src="/sales/images/shopping.png">
+    <div class="card-body">
+        <h4 class="card-title">№ {{ order.id }}!</h4>
+        <h5 class="card-title">For: {{ order.user }}</h5>
+        <h5 class="card-title">Total price: {{ total }}</h5>
+        <div class="d-flex flex-row flex-wrap">
+            {% for product in order.products.all %}
+            <div class="card" style="width: 200px;">
+                <div class="card-body">
+                    <h4 class="card-title" style="text-align: center"><a href="/sales/products/{{ product.id }}">{{ product.title }}</a></h4>
+                    <h5 class="card-subtitle" style="font-weight: 1000; text-align: center">{{ product.cost }}</h5>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <p class="card-text">Create in {{ order.created_time }}</p>
+        <a href="orders" class="card-link">Back to orders</a>
+    </div>
+</div>
+{% endblock %}
