@@ -5,12 +5,11 @@ from datetime import datetime
 
 class Sales(TemplateView):
     template_name = 'sales/base.html'
-    day = datetime.now()
 
     def get_context_data(self, *args, **kwargs):
         context = super(Sales, self).get_context_data(*args, **kwargs)
         context['message'] = 'Hello World!'
-        context['day'] = self.day
+        context['day'] = datetime.now()
         context['string'] = context['string'] if 'string' in kwargs.keys() else 'Guest'
         return context
 
