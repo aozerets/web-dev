@@ -1,0 +1,1 @@
+Just open [simple.html](src/simpleCSS/simple.html) page in browser

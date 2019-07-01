@@ -10,4 +10,5 @@ as a zip archive or by cloning this repository.
 3. [Task#3 uWSGI framework](src/uwsgi/uwsgi.md)
 4. [Task#4 Flask App](src/flask_app/flask_app.md)
 5. [Task#5 sqlite3 ORM](src/sqlite3_ORM/sqlite3_ORM.md)
-5. [Task#6 Django App](src/django_app/README.md)
+6. [Task#6 Django App](src/django_app/README.md)
+7. [Task#9 Simple Css](src/simpleCSS/README.md)
