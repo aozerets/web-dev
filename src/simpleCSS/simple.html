@@ -5,79 +5,175 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="main.css">
-    <title>
-        Sales!
-    </title>
+    <title>BestCourses!</title>
 </head>
 <body>
     <header>
         <section>
-            <div class="header-1">
-                <div class="header-container flex-grid">
-                    <div class="company-logo"></div>
-                    <div class="header-item">
-                        <a href="#calls-to-action">Programs&#9661</a>
+            <div class="header__main">
+                <div class="header__container flex-grid">
+                    <div class="header__company-logo"></div>
+                    <div class="header__item">
+                        <a href="allprograms.html">Programs&#9661</a>
                     </div>
-                    <div class="header-item">
+                    <div class="header__item">
                         Lessons
                     </div>
-                    <div class="header-item">
+                    <div class="header__item">
                         Exercises
                     </div>
                 </div>
-                <div class="login-button">
+                <div class="header__login-button" id="header__login-button">
                     Login
                 </div>
             </div>
         </section>
-        <section class="words marquee">New blog post "Python4 soon"! Best student works! New Partner in project! New channel "AwesomeSlack" opened!
+        <section class="words marquee">New blog post "Python4 soon"! Best student works gallery opened! New Partner in project! New channel "AwesomeSlack" opened!
         </section>
-        <section class="header-content">
-            <h1 class="header-title animate-pop-in">Awesome online-courses from professionals</h1>
-            <h3 class="header-subtitle animate-pop-in">A useful start for your web development</h3>
+        <section class="header__content">
+            <h1 class="header__title animate-pop-in">Awesome online-courses from professionals</h1>
+            <h3 class="header__subtitle animate-pop-in">A useful start for your web development</h3>
             <div class="flex-grid animate-pop-in">
-                <div class="course-card course-card__python col animate-card-in">
-                    <h2 class="header-subtitle">Python3</h2>
+                <div class="course-card course-card__python col animate-card-in option">
+                    <h2 class="course-card__title">Python3</h2>
+                    <h4 class="course-card__more-info">Starting 01.08.19!!!!</h4>
+                    <p class="course-card__more-info">Some more info about this awesome course you are considering!</p>
+                    <p class="course-card__action"><a class="button" href="#">Sign it</a></p>
                 </div>
-                <div class="course-card course-card__js col animate-card-in">
-                    <h2 class="header-subtitle">JavaScript</h2>
+                <div class="course-card course-card__js col animate-card-in option">
+                    <h2 class="course-card__title">JavaScript</h2>
+                    <h4 class="course-card__more-info">Starting 01.09.19!!!!</h4>
+                    <p class="course-card__more-info">Some more info about this awesome course you are considering!</p>
+                    <p class="course-card__action"><a class="button" href="#">Sign it</a></p>
                 </div>
-                <div class="course-card course-card__kotlin col animate-card-in">
-                    <h2 class="header-subtitle">Kotlin</h2>
+                <div class="course-card course-card__kotlin col animate-card-in option">
+                    <h2 class="course-card__title">Kotlin</h2>
+                    <h4 class="course-card__more-info">Starting Soon!!!</h4>
+                    <p class="course-card__more-info">Some more info about this awesome course you are considering!</p>
+                    <p class="course-card__action"><a class="button" href="#">Sign it</a></p>
                 </div>
             </div>
         </section>
+        <div id="myModal" class="modal">
+
+            <!-- Modal content -->
+            <div class="modal__content">
+                <div class="modal__header">
+                    <span class="modal__close" id="close">&times;</span>
+                    <h2>Signing on some course</h2>
+                </div>
+                <div class="modal__body">
+                    <p>Give me all your money!! =)</p>
+                    <p>Some other text...</p>
+                </div>
+                <div class="modal__footer">
+                    <h3>Very good choice</h3>
+                </div>
+            </div>
+
+        </div>
     </header>
+    <main>
+        <section class="teachers__carousel-container animate-pop-in">
+            <h2 class="section-title animate-pop-in"> Awesome Professors</h2>
+            <ul class="teachers__carousel" id="teachers__carousel">
+                <li class="teachers previous">
+                    <div class="teachers__image" style="background-image: url(murray1.jpg);"></div>
+                    <div class="teachers__title">
+                        Professor
+                    </div>
+                    <div class="teachers__subtitle">
+                        Python Developer
+                    </div>
+                </li>
+                <li class="teachers current">
+                    <div class="teachers__image" style="background-image: url(murray2.jpg);"></div>
+                    <div class="teachers__title">
+                        Murray
+                    </div>
+                    <div class="teachers__subtitle">
+                        Python Developer
+                    </div>
+                </li>
+                <li class="teachers next">
+                    <div class="teachers__image" style="background-image: url(murray3.jpg);"></div>
+                    <div class="teachers__title">
+                        Great
+                    </div>
+                    <div class="teachers__subtitle">
+                        JavaScript Developer
+                    </div>
+                </li>
+                <li class="teachers">
+                    <div class="teachers__image" style="background-image: url(murray4.jpg);"></div>
+                    <div class="teachers__title">
+                        Another
+                    </div>
+                    <div class="teachers__subtitle">
+                        JavaScript Developer
+                    </div>
+                </li>
+                <li class="teachers">
+                    <div class="teachers__image" style="background-image: url(murray5.jpg);"></div>
+                    <div class="teachers__title">
+                        Somebody
+                    </div>
+                    <div class="teachers__subtitle">
+                        JavaScript Developer
+                    </div>
+                </li>
+                <li class="teachers">
+                    <div class="teachers__image" style="background-image: url(murray6.jpg);"></div>
+                    <div class="teachers__title">
+                        Java
+                    </div>
+                    <div class="teachers__subtitle">
+                        Java Developer
+                    </div>
+                </li>
+                <li class="teachers">
+                    <div class="teachers__image" style="background-image: url(murray7.jpg);"></div>
+                    <div class="teachers__title">
+                        First
+                    </div>
+                    <div class="teachers__subtitle">
+                        Kotlin Developer
+                    </div>
+                </li>
+                <li class="teachers">
+                    <div class="teachers__image" style="background-image: url(murray8.jpg);"></div>
+                    <div class="teachers__title">
+                        Kotlin
+                    </div>
+                    <div class="teachers__subtitle">
+                        Kotlin Developer
+                    </div>
+                </li>
+            </ul>
+        </section>
+        <section class="teachers__carousel-pips animate-pop-right" id="teachers__carousel-pips">
+            <ul></ul>
+        </section>
+    </main>
     <footer>
         <div class="flex-grid">
             <div class="col animate-pop-right">
-                <h4 class="footer-link">About</h4>
+                <h4 class="footer__link">About</h4>
             </div>
             <div class="col animate-pop-right">
-                <h4 class="footer-link">Channels</h4>
+                <h4 class="footer__link">Channels</h4>
             </div>
             <div class="col animate-pop-right">
-                <h4 class="footer-link">Partners</h4>
+                <h4 class="footer__link">Partners</h4>
             </div>
             <div class="col animate-pop-right">
-                <h4 class="footer-link">Blog</h4>
+                <h4 class="footer__link">Blog</h4>
             </div>
             <div class="col animate-pop-right">
                 <img class="rocky-dashed animate-pop-right" src="rocky-dashed.svg">
             </div>
         </div>
     </footer>
-    <script>
-      // Prepare the body tag by adding a "js-paused" class
-      document.body.className += " js-loading";
-
-      // Listen for when everything has loaded
-      window.addEventListener("load", showPage, false);
-
-      function showPage() {
-        // Remove the "js-paused" class
-        document.body.className = document.body.className.replace("js-loading","");
-      }
-    </script>
+    <script src="main.js"></script>
 </body>
 </html>

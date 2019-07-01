@@ -26,10 +26,13 @@ figure {
     display: none !important;
 }
 main {
-    margin: 0 auto;
-    padding: 0 2rem;
-    max-width: 1280px;
+    margin: -1em auto 0;
+    padding: 0 auto;
     width: 100%;
+    line-height: 1.5;
+    min-height: 20em;
+    overflow-x: hidden;
+    background-color: #F5F5F5;
 }
 .module {
     margin: 8rem 0;
@@ -68,25 +71,25 @@ main {
     .flex-grid {
         display: block;
     }
-    .header-1 {
+    .header__main {
         height: auto;
         margin: 0 auto;
         position: relative;
         display: block;
     }
-    .login-button {
+    .header__login-button {
         position: relative;
         margin: 0 40% 0;
     }
-    .company-logo {
+    .header__company-logo {
         margin: 0 45%;
     }
-    .single-column .col .header-title .header-subtitle .header-item .company-logo {
+    .single-column .col .header__title .header__subtitle .header__item .header__company-logo .course-card__title{
         position: relative;
         margin: 0 auto;
         width: auto;
     }
-    .header-container {
+    .header__container {
         margin: 0 auto;
         justify-content: center;
     }
@@ -118,6 +121,12 @@ main {
     font-weight: 700;
     src: local('Open Sans Bold'), local('OpenSans-Bold'), url(https://fonts.gstatic.com/s/opensans/v13/k3k702ZOKiLJc3WVjuplzKRDOzjiPcYnFooOUGCOsRk.woff) format('woff');
 }
+@font-face {
+    font-family: 'Flanella';
+    font-style: normal;
+    font-weight: 100;
+    src: local('Flanella'), url(Flanella.ttf) format('woff');
+}
 html {
     background: #F9FCFF;
     color: #333;
@@ -129,6 +138,9 @@ html {
 }
 body {
     font-size: 1.8rem;
+}
+div {
+    margin: 0;
 }
 h2, h3 {
     margin-bottom: 0;
@@ -239,14 +251,16 @@ footer li:first-child:before {
     transform: scale(1.2);
 }
 .section-title {
+    animation-delay: .6s;
+    padding-top: 1em;
     text-align: center;
 }
 .button {
-    background: whitesmoke;
-    border-radius: .8rem;
-    color: #000;
+    background: #C864FF;
+    border-radius: 1.4rem;
+    color: #fff;
     display: block;
-    padding: 2rem;
+    padding: 0;
     margin: 0 auto;
     text-align: center;
     width: 10rem;

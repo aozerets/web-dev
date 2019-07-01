@@ -2,7 +2,8 @@
     -webkit-animation-play-state: paused !important;
     animation-play-state: paused !important;
 }
-header {
+header,
+.allprograms{
     align-items: center;
     background: #333;
     display: flex;
@@ -15,7 +16,8 @@ header {
     transform-style: preserve3d;
     perspective: 100px;
 }
-header:before {
+header:before,
+.allprograms:before{
     animation: fade-slide-down 2s .3s cubic-bezier(0, 0.5, 0, 1) forwards;
     background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, .8)),
     url(background.jpg) no-repeat bottom;
@@ -29,16 +31,16 @@ header:before {
     left: 0;
     z-index: -1;
 }
-.header-1 {
+.header__main {
     display: flex;
     flex-direction: row;
     animation: no-transform .6s cubic-bezier(0, 0.9, 0.3, 1.2) forwards;
     opacity: 0;
     transform: translateY(-4rem) scale(.8);
-    color: whitesmoke;
+    color: #F5F5F5;
     margin: 0 auto;
 }
-.header-container{
+.header__container{
     font-family: "Roboto", "Lucida Grande", "DejaVu Sans", "Bitstream Vera Sans", Verdana, Arial, sans-serif;
     font-size: large;
     margin: 0 auto;
@@ -47,37 +49,37 @@ header:before {
     flex-direction: row;
     flex: 6;
 }
-.company-logo {
+.header__company-logo {
     margin: .8em 1em 0;
     padding: 1em;
     animation: pulse 2s 3s ease-out infinite;
     background: url(phoenix-logo36.png) no-repeat;
     cursor: pointer;
 }
-.header-item {
+.header__item {
     margin: 0 1em 0 0;
     padding: 1em;
 }
-.header-item a{
-    color: whitesmoke;
+.header__item a{
+    color: #F5F5F5;
 }
-.header-item a:hover{
+.header__item a:hover{
     color: #C864FF;
 }
-.login-button {
+.header__login-button {
     margin: .5em .5em;
-    background: whitesmoke;
+    background: #F5F5F5;
     border-radius: .8rem;
     color: #000;
     padding: .5em .5em;
     cursor: pointer;
 }
-.login-button:hover {
+.header__login-button:hover {
     background: #C864FF;
     color: #fff;
     border: 1px;
     border-radius: .8rem;
-    box-shadow: 0 0 8px 1px whitesmoke;
+    box-shadow: 0 0 8px 1px #F5F5F5;
     opacity: .8;
 }
 .marquee {
@@ -87,7 +89,7 @@ header:before {
     animation: marquee 20s linear infinite;
     margin: 0 auto;
     text-align: center;
-    color: whitesmoke;
+    color: #F5F5F5;
 }
 .marquee:hover {
     -webkit-animation-play-state: paused;
@@ -97,8 +99,8 @@ header:before {
     opacity: 0;
     animation-delay: 1.4s;
 }
-.header-title, .header-subtitle {
-    color: whitesmoke;
+.header__title, .header__subtitle, .course-card__title {
+    color: #F5F5F5;
 }
 .animate-pop-in {
     animation: pop-in .6s cubic-bezier(0, 0.9, 0.3, 1.2) forwards;
@@ -119,15 +121,15 @@ header:before {
     top: 0;
     animation-delay: .6s;
 }
-.header-title {
+.header__title {
     animation-delay: .6s;
 }
-.header-subtitle {
+.header__subtitle, .course-card__title{
     animation-delay: 1s;
     text-transform: uppercase;
     margin-bottom: 5rem;
 }
-.header-button {
+.header__button {
     animation-delay: 1.1s;
     transform: translateZ(.1px);
     position: relative;
@@ -140,13 +142,15 @@ header:before {
     border-radius: .8rem;
     width: 316px;
     height: 316px;
-    box-shadow: 0 0 8px 1px whitesmoke;
+    box-shadow: 0 0 8px 1px #F5F5F5;
     position: relative;
     opacity: 0;
-    cursor: pointer;
+}
+.course-card__title {
+    animation-delay: .6s;
 }
 .course-card__python {
-    background: url(python-logo.jpg) no-repeat 100%;
+    background: url(python-logo-dark.jpg) no-repeat 100%;
     background-size: cover;
     padding: 0;
 }
@@ -188,17 +192,316 @@ footer:after {
 footer .col{
     animation-delay: 1.2s;
 }
-.footer-link {
+.footer__link {
     color: #000;
 }
-.footer-link:hover {
+.footer__link:hover {
     opacity: 0.3;
     cursor: pointer;
+}
+
+.options .course-card__action {
+    display: inline-block;
+    margin: 1em auto;
+}
+
+.option .course-card__more-info {
+    visibility: hidden;
+}
+
+.option .course-card__action {
+    -webkit-transform: scale(.2);
+    transform: scale(.2);
+    visibility: hidden;
+}
+.option .course-card__action .button:hover {
+    color: #000;
+}
+
+/* Set up the "highlighted" state */
+
+.option.highlighted {
+    background: #fff;
+    border-color: #eee;
+    background-size: cover;
+    -webkit-transform: scale(1.2);
+    transform: scale(1.2);
+
+}
+.option.highlighted .course-card__title {
+    color: #000;
+    -webkit-transform: translateY(-1em) scale(1.2);
+    transform: translateY(-.8em) scale(1.2);
+}
+
+.option.highlighted .course-card__more-info {
+    -webkit-transform: translateY(-1em);
+    transform: translateY(-1em);
+    visibility: visible;
+}
+
+.option.highlighted .course-card__action {
+    -webkit-transform: translateY(2em);
+    transform: translateY(2em);
+    visibility: visible;
+}
+/* Transitions */
+
+.option {
+    -webkit-transition: background .2s ease-out,
+    -webkit-transform .5s cubic-bezier(0,1.7,.3,1);
+    transition: transform 1.5s cubic-bezier(0,1.7,.3,1),
+    background .2s ease-out,
+    -webkit-transform .5s cubic-bezier(0,1.7,.3,1);
+}
+
+.option > * {
+    -webkit-transition: -webkit-transform .5s cubic-bezier(0,1,.3,1);
+    transition: -webkit-transform .5s cubic-bezier(0,1,.3,1);
+    transition: transform .5s cubic-bezier(0,1,.3,1);
+}
+
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 150px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal__content {
+    position: relative;
+    background-color: #F5F5F5;
+    margin: auto;
+    padding: 0;
+    border: 1px solid #888;
+    width: 40%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    animation: modal-top .6s cubic-bezier(0, 0.9, 0.3, 1.2) forwards;
+}
+
+/* The Close Button */
+.modal__close {
+    color: #F5F5F5;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.modal__close:hover,
+.modal__close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+.modal__header,
+.modal__header h2{
+    margin: 0 auto;
+}
+.modal__header {
+    padding: 1rem 1rem;
+    background-color: #C864FF;
+    color: #F5F5F5;
+}
+
+.modal__body,
+.modal__body p{
+    margin: 0 auto;
+    padding: 1rem 1rem;
+}
+
+.modal__footer,
+.modal__footer h3 {
+    margin: 0 auto;
+}
+.modal__footer {
+    padding: 1rem 1rem;
+    background-color: #C864FF;
+    color: #F5F5F5;
+}
+
+.teachers__carousel-container {
+    animation-delay: 1.2s;
+    height: 13em;
+    margin: 0 auto;
+    position: relative;
+    width: 30em;
+}
+
+.teachers__carousel {
+    height: 12em;
+    position: relative;
+    width: 100%;
+}
+
+.teachers {
+    cursor: pointer;
+    left: 50%;
+    list-style: none;
+    margin: 0 auto;
+    opacity: 0;
+    padding: 0;
+    text-align: center;
+    position: absolute;
+    top: 80%;
+    -webkit-transform: translate(calc(100% + 12em), -50%) scale(.6);
+    transform: translate(calc(100% + 12em), -50%) scale(.6);
+    -webkit-transition: opacity .5s .6s ease-out,
+    -webkit-transform 1.5s cubic-bezier(.7,-0.3,.2,1.3);
+    transition: opacity .5s .6s ease-out,
+    -webkit-transform 1.5s cubic-bezier(.7,-0.3,.2,1.3);
+    transition: transform 1.5s cubic-bezier(.7,-0.3,.2,1.3),
+    opacity .5s .6s ease-out;
+    transition: transform 1.5s cubic-bezier(.7,-0.3,.2,1.3),
+    opacity .5s .6s ease-out,
+    -webkit-transform 1.5s cubic-bezier(.7,-0.3,.2,1.3);
+    width: 16em;
+}
+.teachers__title {
+    margin: 0 auto;
+    font-family: 'Flanella';
+    font-size: 3em;
+}
+.teachers__image {
+    background-size: 100%;
+    border-radius: 50%;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,.5) inset;
+    height: 7em;
+    left: calc(50% - 3.5em);
+    position: absolute;
+    top: -7em;
+    width: 7em;
+}
+
+.teachers.previous {
+    opacity: .5;
+    padding: 0;
+    -webkit-transform: translate(-150%, -50%) scale(.8);
+    transform: translate(-150%, -50%) scale(.8);
+}
+
+.teachers.current {
+    cursor: default;
+    opacity: 1;
+    padding: 0;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.teachers.next {
+    opacity: .5;
+    padding: 0;
+    -webkit-transform: translate(50%, -50%) scale(.8);
+    transform: translate(50%, -50%) scale(.8);
+}
+
+.teachers.left {
+    -webkit-transform: translate(calc(-150% - 12em), -50%) scale(.6);
+    transform: translate(calc(-150% - 12em), -50%) scale(.6);
+}
+
+/* styling pips */
+
+.teachers__carousel-pips {
+    animation-delay: 1.2s;
+    bottom: 0;
+    margin: 5em auto 0;
+    position: relative;
+    text-align: center;
+    width: 100%;
+}
+
+.teachers__carousel-pips ul {
+    list-style: none;
+    padding: 0;
+    width: 100%;
+}
+
+.pip {
+    background: #888;
+    border: 2px solid #555;
+    border-radius: 50%;
+    cursor: pointer;
+    display: inline-block;
+    height: 20px;
+    margin: 0 .1em;
+    padding: 0;
+    -webkit-transform: scale(.5);
+    transform: scale(.5);
+    -webkit-transition: all .8s cubic-bezier(0,1,.3,1);
+    transition: all .8s cubic-bezier(0,1,.3,1);
+    width: 20px;
+}
+
+.pip.previous, .pip.next {
+    background: #ccc;
+    -webkit-transform: scale(.6);
+    transform: scale(.6);
+}
+
+.pip.current {
+    background: #fff;
+    cursor: default;
+    -webkit-transform: scale(.7);
+    transform: scale(.7);
+}
+
+.pip:not(.current):hover {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+}
+
+.allprograms,
+.allprograms__container {
+    display: flex;
+    font-size: 18px;
+    height: auto;
+    position: relative;
+    flex-wrap: wrap;
+    justify-items: center;
+    justify-content: center;
+}
+
+.allprograms__container .course-card {
+    margin: 1em 1em;
+}
+
+.allprograms__title {
+    margin: 0 auto;
+    font-size: 4em;
+    color: #C864FF;
+}
+.allprograms .course-card__python {
+    animation-delay: .4s;
+}
+.allprograms .course-card__js {
+    animation-delay: .6s;
+}
+.allprograms .course-card__kotlin {
+    animation-delay: .8s;
 }
 @keyframes no-transform {
     100% {
         opacity: 1;
         transform: none;
+    }
+}
+
+@keyframes modal-top {
+    0% {
+        top: -300px;
+        opacity: 0;
+        transform: translateY(-4rem);
+    }
+    100% {
+        top: 0;
+        opacity: 1;
     }
 }
 @keyframes fade-slide-down {
